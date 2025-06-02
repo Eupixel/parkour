@@ -1,5 +1,6 @@
 package net.eupixel.game
 
+import net.eupixel.core.Messenger
 import net.eupixel.save.Config.instance
 import net.eupixel.save.Config.translator
 import net.kyori.adventure.sound.Sound
@@ -21,12 +22,13 @@ import net.minestom.server.item.Material
 import java.util.Collections
 import java.util.concurrent.ThreadLocalRandom
 
-class GameManager {
+object  GameManager {
     private val random = ThreadLocalRandom.current()
     private val placed: MutableList<Pos> = Collections.synchronizedList(ArrayList())
     private val spawnedFrom: MutableList<Pos> = Collections.synchronizedList(ArrayList())
     private val startBlock = Pos(0.0, 0.0, 0.0)
     private val startPos = Pos(0.5, 1.0, 0.5)
+    private lateinit var leaveItem: ItemStack
 
     fun handlePlayerMove(player: Player) {
         val pos = player.position
@@ -113,8 +115,14 @@ class GameManager {
     }
 
     fun spawnItems(player: Player) {
-        val leaveItem = ItemStack.builder(Material.BARRIER).customName(miniMessage().deserialize(translator.get("leave_item_name", player.locale)).decoration(
+        leaveItem = ItemStack.builder(Material.BARRIER).customName(miniMessage().deserialize(translator.get("leave_item_name", player.locale)).decoration(
             TextDecoration.ITALIC, false)).build()
         player.inventory.setItemStack(0, leaveItem)
+    }
+
+    fun handleItem(player: Player, item: ItemStack) {
+        if(item == leaveItem) {
+            Messenger.send("entrypoint", "lobby", player.username)
+        }
     }
 }

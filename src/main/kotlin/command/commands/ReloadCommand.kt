@@ -1,5 +1,6 @@
 package net.eupixel.command.commands
 
+import net.eupixel.game.GameManager
 import net.eupixel.save.Config
 import net.eupixel.util.PrefixLoader
 import net.eupixel.vivlib.util.Permissions
@@ -21,6 +22,7 @@ class ReloadCommand : Command("reload") {
                 Permissions.refreshAll()
                 MinecraftServer.getConnectionManager().onlinePlayers.forEach {
                     it.refreshCommands()
+                    GameManager.resetGame(it)
                     PrefixLoader.loadPrefix(it)
                 }
             }

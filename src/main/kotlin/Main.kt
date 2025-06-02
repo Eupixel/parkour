@@ -3,50 +3,25 @@ package net.eupixel
 import net.eupixel.core.DirectusClient
 import net.eupixel.command.CommandManager
 import net.eupixel.core.DBTranslator
-import net.eupixel.core.Messenger
+import net.eupixel.core.MessageHandler
 import net.eupixel.event.EventManager
-import net.eupixel.game.GameManager
 import net.eupixel.save.Config
-import net.kyori.adventure.text.minimessage.MiniMessage
 import net.minestom.server.MinecraftServer
 import net.minestom.server.extras.MojangAuth
-import net.minestom.server.network.packet.server.common.TransferPacket
-
-val gm = GameManager()
 
 fun main() {
     DirectusClient.initFromEnv()
-    Config.translator = DBTranslator(arrayOf("whereami", "flight_true", "flight_false", "prefix", "leave_item_name", "score_info"))
+    MessageHandler.start()
+    Config.translator = DBTranslator(arrayOf(
+        "whereami",
+        "flight_true",
+        "flight_false",
+        "prefix",
+        "leave_item_name",
+        "score_info"
+    ))
+
     val server = MinecraftServer.init()
-    Messenger.bind("0.0.0.0", 2905)
-    Messenger.registerTarget("entrypoint", "entrypoint", 2905)
-    Messenger.addListener("transfer") { msg ->
-        val name = msg.split("?")[0]
-        val target = msg.split("?")[1]
-        MinecraftServer.getConnectionManager().onlinePlayers.forEach {
-            if(it.username == name) {
-                it.sendPacket(TransferPacket(target.split("&")[0], target.split("&")[1].toInt()))
-            }
-        }
-    }
-    Messenger.addListener("action") { msg ->
-        val name = msg.split("?")[0]
-        val msg = msg.split("?")[1]
-        MinecraftServer.getConnectionManager().onlinePlayers.forEach {
-            if(it.username == name) {
-                it.sendActionBar(MiniMessage.miniMessage().deserialize(msg))
-            }
-        }
-    }
-    Messenger.addListener("message") { msg ->
-        val name = msg.split("?")[0]
-        val msg = msg.split("?")[1]
-        MinecraftServer.getConnectionManager().onlinePlayers.forEach {
-            if(it.username == name) {
-                it.sendMessage(MiniMessage.miniMessage().deserialize(msg))
-            }
-        }
-    }
     Config.instance = MinecraftServer.getInstanceManager().createInstanceContainer()
     Config.init()
     EventManager.init()
