@@ -1,8 +1,8 @@
 package net.eupixel.game
 
+import net.eupixel.core.DBTranslator
 import net.eupixel.core.Messenger
 import net.eupixel.save.Config.instance
-import net.eupixel.save.Config.translator
 import net.kyori.adventure.sound.Sound
 import net.kyori.adventure.text.format.TextDecoration
 import net.minestom.server.MinecraftServer
@@ -37,7 +37,7 @@ object  GameManager {
             return
         }
         if (spawnedFrom.isNotEmpty()) {
-            player.sendActionBar(miniMessage().deserialize(translator.get("score_info", player.locale).replace("<score>", spawnedFrom.size.toString())))
+            player.sendActionBar(miniMessage().deserialize(DBTranslator.get("score_info", player.locale).replace("<score>", spawnedFrom.size.toString())))
         }
         val beneath = pos.withX(pos.blockY() - 1.0).withX(pos.blockX().toDouble()).withZ(pos.blockZ().toDouble()).withYaw(0f).withPitch(0f)
         if (beneath.blockZ() == placed[placed.size - 3].blockZ() && !spawnedFrom.contains(beneath)) {
@@ -115,7 +115,7 @@ object  GameManager {
     }
 
     fun spawnItems(player: Player) {
-        leaveItem = ItemStack.builder(Material.BARRIER).customName(miniMessage().deserialize(translator.get("leave_item_name", player.locale)).decoration(
+        leaveItem = ItemStack.builder(Material.BARRIER).customName(miniMessage().deserialize(DBTranslator.get("leave_item_name", player.locale)).decoration(
             TextDecoration.ITALIC, false)).build()
         player.inventory.setItemStack(0, leaveItem)
     }

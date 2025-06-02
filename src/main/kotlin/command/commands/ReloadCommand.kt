@@ -1,5 +1,6 @@
 package net.eupixel.command.commands
 
+import net.eupixel.core.DBTranslator
 import net.eupixel.game.GameManager
 import net.eupixel.save.Config
 import net.eupixel.util.PrefixLoader
@@ -18,7 +19,7 @@ class ReloadCommand : Command("reload") {
             sender.sendMessage(MiniMessage.miniMessage().deserialize("Reloading..."))
             val ms = measureTimeMillis {
                 Config.init()
-                Config.translator.loadFromDB()
+                DBTranslator.loadFromDB()
                 Permissions.refreshAll()
                 MinecraftServer.getConnectionManager().onlinePlayers.forEach {
                     it.refreshCommands()

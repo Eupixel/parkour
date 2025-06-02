@@ -1,6 +1,5 @@
 package net.eupixel.save
 
-import net.eupixel.core.DBTranslator
 import net.eupixel.core.DirectusClient.getData
 import net.eupixel.vivlib.util.Helper.convertToPos
 import net.minestom.server.coordinate.Pos
@@ -8,7 +7,6 @@ import net.minestom.server.instance.Instance
 
 object Config {
     lateinit var instance: Instance
-    lateinit var translator: DBTranslator
 
     var chatFormat: String = ""
     var spawnPosition: Pos = Pos(0.0, 0.0, 0.0)

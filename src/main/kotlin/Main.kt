@@ -11,15 +11,8 @@ import net.minestom.server.extras.MojangAuth
 
 fun main() {
     DirectusClient.initFromEnv()
+    DBTranslator.loadFromDB()
     MessageHandler.start()
-    Config.translator = DBTranslator(arrayOf(
-        "whereami",
-        "flight_true",
-        "flight_false",
-        "prefix",
-        "leave_item_name",
-        "score_info"
-    ))
 
     val server = MinecraftServer.init()
     Config.instance = MinecraftServer.getInstanceManager().createInstanceContainer()
