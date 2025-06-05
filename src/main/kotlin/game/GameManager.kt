@@ -115,8 +115,10 @@ object  GameManager {
     }
 
     fun spawnItems(player: Player) {
-        leaveItem = ItemStack.builder(Material.BARRIER).customName(miniMessage().deserialize(DBTranslator.get("leave_item_name", player.locale)).decoration(
-            TextDecoration.ITALIC, false)).build()
+        leaveItem = ItemStack.builder(Material.BARRIER)
+            .customName(miniMessage().deserialize(DBTranslator.get("leave_item_name", player.locale)).decoration(TextDecoration.ITALIC, false))
+            .hideExtraTooltip()
+            .build()
         player.inventory.setItemStack(0, leaveItem)
     }
 
