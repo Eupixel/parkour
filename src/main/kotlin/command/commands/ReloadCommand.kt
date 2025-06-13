@@ -26,8 +26,8 @@ class ReloadCommand : Command("reload") {
                     it.refreshCommands()
                     GameManager.resetGame(it)
                     PrefixLoader.loadPrefix(it)
-                    Vivlib.reload()
                 }
+                Vivlib.reload()
             }
             val formatted = String.format(Locale.US, "%.2f", ms / 1000.0)
             sender.sendMessage(MiniMessage.miniMessage().deserialize("Reloaded! (in $formatted s)"))
