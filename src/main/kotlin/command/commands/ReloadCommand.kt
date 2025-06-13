@@ -1,6 +1,6 @@
 package net.eupixel.command.commands
 
-import core.Vivlib
+import net.eupixel.vivlib.core.Vivlib
 import net.eupixel.vivlib.core.DBTranslator
 import net.eupixel.game.GameManager
 import net.eupixel.save.Config
