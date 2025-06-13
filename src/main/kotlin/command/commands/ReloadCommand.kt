@@ -1,5 +1,6 @@
 package net.eupixel.command.commands
 
+import core.Vivlib
 import net.eupixel.vivlib.core.DBTranslator
 import net.eupixel.game.GameManager
 import net.eupixel.save.Config
@@ -25,6 +26,7 @@ class ReloadCommand : Command("reload") {
                     it.refreshCommands()
                     GameManager.resetGame(it)
                     PrefixLoader.loadPrefix(it)
+                    Vivlib.reload()
                 }
             }
             val formatted = String.format(Locale.US, "%.2f", ms / 1000.0)
