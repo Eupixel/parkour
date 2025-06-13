@@ -124,7 +124,7 @@ object  GameManager {
 
     fun handleItem(player: Player, item: ItemStack) {
         if(item == leaveItem) {
-            Messenger.send("entrypoint", "lobby", player.username)
+            Messenger.send("entrypoint", "lobby", "${player.uuid}&${player.playerConnection.remoteAddress}")
         }
     }
 }
