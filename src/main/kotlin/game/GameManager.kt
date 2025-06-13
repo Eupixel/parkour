@@ -1,7 +1,7 @@
 package net.eupixel.game
 
-import net.eupixel.core.DBTranslator
-import net.eupixel.core.Messenger
+import net.eupixel.vivlib.core.DBTranslator
+import net.eupixel.vivlib.core.Messenger
 import net.eupixel.save.Config.instance
 import net.kyori.adventure.sound.Sound
 import net.kyori.adventure.text.format.TextDecoration

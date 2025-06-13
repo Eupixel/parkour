@@ -1,5 +1,6 @@
 package net.eupixel.core
 
+import net.eupixel.vivlib.core.Messenger
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.minestom.server.MinecraftServer
 import net.minestom.server.network.packet.server.common.TransferPacket
